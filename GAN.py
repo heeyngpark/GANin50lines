@@ -18,7 +18,7 @@ D = torch.nn.Sequential(
 )
 
 ######################### Main Function
-dataset = torchvision.datasets.MNIST('./MNIST', train=True, transform=None, target_transform=None, download=False)
+dataset = torchvision.datasets.MNIST('./MNIST', train=True, transform=torchvision.transforms.ToTensor(), target_transform=None, download=True)
 data_loader = torch.utils.data.DataLoader(dataset=dataset, batch_size=100, shuffle=True)
 
 # Optimizers
@@ -31,6 +31,8 @@ for epoch in range(200):
     for i, images in enumerate(data_loader):
         # ===================== Train D =====================#
         images = Variable(images[0])
+        images = images.view(100, 1 * 28 * 28)
+
         noise = Variable(torch.randn(images.size(0), 128))
         fake_images = G(noise)
         d_loss = -torch.mean(torch.log(D(images) + 1e-8) + torch.log(1 - D(fake_images) + 1e-8))
@@ -41,6 +43,8 @@ for epoch in range(200):
         d_optimizer.step()
 
         # ===================== Train G =====================#
+        noise = Variable(torch.randn(images.size(0), 128))
+        fake_images = G(noise)
         g_loss = -torch.mean(torch.log(D(fake_images) + 1e-8))
 
         # Optimization
@@ -52,4 +56,5 @@ for epoch in range(200):
         if (i + 1) % 10 == 0:
             print('Epoch [%d/%d], Step[%d/%d], d_loss: %.4f, g_loss: %.4f'% (epoch + 1, 200, i + 1, len(data_loader), d_loss.data[0], g_loss.data[0]))
             fake_images = G(fixed_noise)
+            fake_images = fake_images.view(10, 1, 28, 28)
             torchvision.utils.save_image(fake_images.data, 'generatedimage-%d-%d.png' % (epoch + 1, i + 1))

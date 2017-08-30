@@ -21,4 +21,47 @@ Very Simple Implementation of Vanilla GAN (I. Goodfellow, 2014)
 
 In Tensorflow: [Link](https://github.com/HyeongminLEE/GANin50lines)
 
-About this code (in Korean): [My Blog Post](https://taeoh-kim.github.io/blog/blog/tensorflow%EB%A1%9C-50%EC%A4%84%EC%A7%9C%EB%A6%AC-original-gan-code-%EA%B5%AC%ED%98%84%ED%95%98%EA%B8%B0/)
+## Networks
+
+#### Generator
+
+- Noise - Fully Connected - ReLU - Fully Connected - Sigmoid
+
+#### Discriminator
+
+- Image - Fully Connected - ReLU - Fully Connected - Sigmoid
+
+## Train
+
+```bash
+python GAN.py
+```
+
+## Results
+
+#### Epoch 0 (Initial)
+
+<p align="center"><img width="100%" src="images/epoch0.png" /></p>
+
+#### Epoch 5
+
+<p align="center"><img width="100%" src="images/epoch5.png" /></p>
+
+#### Epoch 10
+
+<p align="center"><img width="100%" src="images/epoch10.png" /></p>
+
+#### Epoch 50
+
+<p align="center"><img width="100%" src="images/epoch50.png" /></p>
+
+#### Epoch 100
+
+<p align="center"><img width="100%" src="images/epoch100.png" /></p>
+
+#### Epoch 150
+
+<p align="center"><img width="100%" src="images/epoch150.png" /></p>
+
+
+
